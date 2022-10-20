@@ -5,6 +5,7 @@ import com.nestdigital.FlightManagement.Model.FlightModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import java.nio.file.Path;
 import java.util.List;
 
@@ -23,5 +24,13 @@ public class FlightController {
     @GetMapping("/view")
     public List<FlightModel> view(){
         return (List<FlightModel>)dao.findAll();
+    }
+
+    @CrossOrigin(origins = "*")
+    @Transactional
+    @PostMapping("/delete")
+    public String deleteFlight(@RequestBody FlightModel flight){
+        dao.deleteById(flight.getId());
+        return "{status:'Success'}";
     }
 }
