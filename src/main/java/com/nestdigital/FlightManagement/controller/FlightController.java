@@ -33,4 +33,9 @@ public class FlightController {
         dao.deleteById(flight.getId());
         return "{status:'Success'}";
     }
+    @CrossOrigin(origins = "*")
+    @PostMapping(path = "/search",consumes = "application/json",produces = "application/json")
+    public List<FlightModel>searchFlight(@RequestBody FlightModel flight){
+        return (List<FlightModel>) dao.searchFlight(flight.getFlightName());
+    }
 }
